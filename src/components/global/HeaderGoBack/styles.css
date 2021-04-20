@@ -1,0 +1,6 @@
+.goback{
+    color: var(--color-text-nav);
+    margin-left: 1rem;
+    margin-right: auto;
+    cursor: pointer;
+}

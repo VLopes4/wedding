@@ -1,0 +1,20 @@
+.footer-cart{
+    background-color: var(--background-color-nav);
+    color: var(--color-text-nav);
+}
+
+.total-purchase{
+    font-weight: bold;
+    color: var(--color-detail);
+    font-size: 2rem;
+}
+
+.btn-cart-buy{
+    width: 30%;
+    height: 40px;
+    font-weight: bold;
+    margin-right: 1rem;
+    text-transform: uppercase;
+    color: var(--color-detail-secundary);
+    background-color: var(--background-color-body);
+}
