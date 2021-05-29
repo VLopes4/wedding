@@ -1,9 +1,13 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
-import imgProfile from '../../assets/images/profile.png';
+import imgProfile from '../../../assets/images/retrato.jpg';
 import './styles.css';
 
-const Publication: React.FC = () => {
+interface PublicationProps{
+    classNames: string;
+}
+
+const Publication: React.FC<PublicationProps> = ({ classNames }) => {
 
     const images = [
         {
@@ -21,7 +25,7 @@ const Publication: React.FC = () => {
     ];
 
     return(
-        <div className="card card-w-50 mx-auto mt-3">
+        <div className={classNames === '' ? "card card-w-50 mx-auto mt-3" : `card mx-auto ${classNames}`}>
             <div className="card-body">
                 <div className="row mx-auto">
                     <img 

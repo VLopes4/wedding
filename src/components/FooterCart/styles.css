@@ -9,12 +9,22 @@
     font-size: 2rem;
 }
 
-.btn-cart-buy{
-    width: 30%;
-    height: 40px;
+.btn-cart-footer{
+    width: 100%;
     font-weight: bold;
-    margin-right: 1rem;
+    font-size: 1.25rem;
     text-transform: uppercase;
+    transition: .5s all;
     color: var(--color-detail-secundary);
-    background-color: var(--background-color-body);
+    background-color: var(--background-color-detail) !important;
+}
+
+.btn-cart-footer:hover{
+    color: var(--color-detail-secundary);
+    background-color: var(--background-color-body) !important;
+}
+
+.security:hover{
+    color: var(--color-detail) !important;
+    text-decoration: underline !important;   
 }

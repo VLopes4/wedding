@@ -1,0 +1,185 @@
+.card-dash{
+    padding: 1rem;
+    border: 2px;
+    transition: all ease .9s;
+    cursor: pointer;
+    box-shadow: 0 .125rem .25rem var(--color-shadow) !important;
+    height: 28vh;
+}
+
+.card-dash:hover{
+    background-color: var(--color-detail-secundary);
+    color: var(--color-text-nav) !important;
+    border: 3px solid var(--color-detail) !important;
+}
+
+.card-dash p{
+    transition: all ease .5s;
+}
+
+.card-dash:hover p{
+    color: var(--color-text-nav) !important;
+}
+
+.card-dash-active{
+    background-color: var(--color-detail-secundary);
+    color: var(--color-text-nav) !important;
+    border: 3px solid var(--color-detail) !important;
+}
+
+.card-dash-active p{
+    color: var(--color-text-nav) !important;
+}
+
+.icon-dash{
+    font-size: 3rem;
+    color: var(--color-detail);
+}
+
+.card-dash-title{
+    margin-top: 1rem;
+    color: var(--color-detail);
+}
+
+.list-table-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-weight: bold;
+    background-color: var(--background-color-detail);
+}
+
+.list-table-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    font-weight: bold;
+    border: 1px solid var(--background-color-detail);
+}
+
+.list-table-item:hover {
+    background-color: var(--background-color-detail-primary);
+}
+
+.list-table-item span {
+    text-align: center;
+    border-right: 1px solid var(--background-color-detail);
+}
+
+.list-table-item span:last-child {
+    border-right: 0px solid var(--background-color-detail-primary) !important;
+}
+
+.list-table-form {
+    border: 1px solid var(--background-color-detail);
+    padding: 2rem;
+}
+
+.guest-name {
+    margin-left: .80rem;
+    font-weight: bold;
+}
+
+.card-subtitle {
+    color: var(--color-detail-secundary) !important;
+}
+
+.card-icon {
+    color: var(--color-detail-primary) !important;
+    margin-right: .20rem;
+}
+
+.card-border{
+    box-shadow: 0 .125rem .25rem var(--color-shadow) !important;
+}
+
+.guest-confirmed {
+    background-color: #0e700e !important;
+}
+
+.guest-recused {
+    background-color: #a70000 !important;
+}
+
+.moment-item {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: .20rem;
+}
+
+.moment-image{
+    display: block;
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+    border-image: initial;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.moment-image::before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    border: 1px solid var(--background-color-detail-primary);
+}
+
+.moment-image input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: -1;
+    opacity: 0;
+}
+
+.moment-image .hover-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.moment-image .hover-text span {
+    position: absolute;
+    color: var(--color-text-nav);
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 45px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background: var(--color-transparent);
+    font-size: 1rem;
+    letter-spacing: 0.25px;
+    padding-top: 11px;
+    transition: all 0.2s ease 0s;
+    transform: translateY(45px);
+}
+
+.moment-image:hover .hover-text span {
+    transform: translateY(0px);
+}
+
+.moment-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.2s ease 0s;
+}
+
+@media screen and (max-width: 991px){
+    .card-dash{
+        height: 42vh !important;
+    }
+}

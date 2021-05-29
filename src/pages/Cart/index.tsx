@@ -1,37 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGifts } from '@fortawesome/free-solid-svg-icons';
-import ProductItem from '../../components/ProductItem';
+import { faGifts, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { CartProductItem } from '../../components/CartProductItem';
 import HeaderGoBack from '../../components/global/HeaderGoBack';
-import './styles.css';
 import FooterCart from '../../components/FooterCart';
+import { useCart } from '../../contexts/cart';
+import { Cart } from '../../models/Cart';
+import './styles.css';
+import HeaderNav from '../../components/global/HeaderPaymentNav';
 
-export default function Cart(){
+export default function CartProduct(){
+    const { cart, quantity } = useCart();
+    const [products, setProducts] = useState<Cart[]>([]);
+
+    useEffect(() => {
+        setProducts(cart);
+    },[cart, quantity])
     
     return(
         <>
             <HeaderGoBack/>
-            <main className="container py-5 my-5">
-                <div className="card">
+            <main className="container pb-5 my-5">
+                <HeaderNav active={1} />
+                <div className="card card-cart">
                     <div className="card-header cart-header">
-                        <span className="cart-header-label">
-                            <Link to="/gifts">
-                                <FontAwesomeIcon icon={faGifts} size="sm"/> CONTINUAR COMPRANDO
-                            </Link>
-                        </span>
-                        <span className="subtitle cart-header-label">
-                            Meu Carrinho (2)
-                        </span>
+                        <div className="row">
+                            <span className="mx-auto">
+                                <Link to="/gifts">
+                                    <FontAwesomeIcon icon={faGifts}/> CONTINUAR COMPRANDO
+                                </Link>
+                            </span>
+                            <span className="subtitle mx-auto">
+                                Meu Carrinho <FontAwesomeIcon icon={faShoppingCart}/> ({ quantity })
+                            </span>
+                        </div>
                     </div>
                     <div className="card-body">
-                        <ProductItem/>
-                        <ProductItem/>
-                        <ProductItem/>
-                        <ProductItem/>
-                        <ProductItem/>
-                        <ProductItem/>
-                        <ProductItem/>
+                        {products.map((product: Cart) => {
+                            return <CartProductItem key={product.sku} data={product}/>
+                        })}
                     </div>
                 </div>
             </main>

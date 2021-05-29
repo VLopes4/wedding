@@ -1,0 +1,42 @@
+.mapouter {
+    position: relative;
+    text-align: right;
+    height: 300px;
+    width: 100%;
+}
+
+.gmap_canvas { 
+    overflow: hidden;
+    background: none !important;
+    height: 300px;
+    width: 100%;
+}
+
+.alert-covid{
+    color: #721c24 !important;
+    background-color: #f8d7da;
+    padding: 0 1.25rem 1.25rem;
+}
+
+.title-alert-covid {
+    font-weight: bold;
+    padding-top: 1.25rem;
+}
+
+.text-alert-covid {
+    color: #721c24 !important;
+    margin-bottom: 0 !important;
+}
+
+.img-event {
+    width: 100%;
+    height: 100%;
+}
+
+.spotify {
+    width: 100%;
+    height: 300px;
+    margin: .1rem 0 -.35rem;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}

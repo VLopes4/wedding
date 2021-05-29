@@ -1,42 +1,79 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { Profile } from '../models/User';
-
 import api from '../services/api';
+import { Cart } from '../models/Cart';
 
 interface CartContextData {
-    
+    cart: Cart[];
+    quantity: number;
+    totalValue: number;
+    addProduct(
+        item: Cart
+    ): Promise<void>;
+    addValue(
+        item: Cart,
+        addOrRemove: boolean
+    ): Promise<void>;
+    setTotal(
+        value: number
+    ): Promise<void>;
+    addItem(
+        item: Cart[]
+    ): Promise<void>;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export const CartProvider: React.FC = ({ children }) => {
-    const [profile, setProfile] = useState<Profile | null>(null)
-    const [login, setLogin] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [loadingForm, setLoadingForm] = useState(false);
-    const [msg, setMsg] = useState('');
+    const [cart, setCart] = useState<Cart[]>([]);
+    const [quantity, setQuantity] = useState(0);
+    const [totalValue, setTotalValue] = useState(0);
 
-    useEffect(() => {
-        function loadStorageData(){
-            const storagedProfile = localStorage.getItem('@Sad:Profile');
-            const storagedToken = localStorage.getItem('@Sad:Token');
+    async function addProduct(item: Cart) {
+        const verifyItem = cart.findIndex(product => product.sku === item.sku);
 
-            if(storagedProfile && storagedToken){
-                api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
-
-                setProfile(JSON.parse(storagedProfile));
-                setLogin(true)
-                setLoading(false);
-            }
-
-            setLoading(false);
+        if(verifyItem > -1){
+            item.quantity = (item.quantity + 1);
+            item.total = (item.price * item.quantity);
+            cart.splice(verifyItem, 1);
+            setCart([item, ...cart]);
+        } else {
+            setCart([item, ...cart]);
         }
+        
+        setQuantity(cart.length + 1);
+    }
 
-        loadStorageData();
-    }, []);
+    async function addValue(item: Cart, addOrRemove: boolean) {
+        const verifyItem = cart.findIndex(product => product.sku === item.sku);
+
+        if(verifyItem > -1){
+            if(addOrRemove){
+                item.quantity = (item.quantity + 1);
+                item.total = (item.price * item.quantity);
+                cart.splice(verifyItem, 1);
+                setCart([item, ...cart]);
+            } else {
+                item.quantity = (item.quantity === 1 ? item.quantity : item.quantity - 1);
+                item.total = (item.price * item.quantity);
+                cart.splice(verifyItem, 1);
+                setCart([item, ...cart]);
+            }
+        }
+    }
+
+    async function setTotal(value: number){
+        if(value > 0){
+            setTotalValue(value);
+        }
+    }
+
+    async function addItem(item: Cart[]){
+        setCart(item);
+        setQuantity(1);
+    }
 
     return (
-        <CartContext.Provider value>
+        <CartContext.Provider value={{ cart, quantity, totalValue, addProduct, addValue, setTotal, addItem }}>
             {children}
         </CartContext.Provider>
     );

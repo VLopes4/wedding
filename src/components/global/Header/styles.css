@@ -1,13 +1,13 @@
 .navbar-background {
     background-color: var(--background-color-nav) !important;
-    z-index: 1;
+    z-index: 999;
     height: 4.75rem;
     transition: all 500ms ease;
 }
 
 .navbar-background-trans {
     background: transparent !important;
-    z-index: 1;
+    z-index: 999;
     height: 4.75rem;
     transition: all 500ms ease;
 }
@@ -71,11 +71,19 @@
     align-items: center;
     justify-items: center;
     justify-content: center;
+    border: none !important;
+    background: none !important;
     text-decoration: none !important;
 }
 
 .icon-user:hover {
     color: var(--color-detail) !important;
+}
+
+.icon-user:focus{
+    box-shadow: 0 0 0 0;
+    border: none !important;
+    outline: none !important;
 }
 
 .icon-user-nav {
@@ -113,7 +121,7 @@
 
 .user-link:hover img{
     transition: all .9s;
-    border: 3px solid var(--color-detail-secundary);
+    border: 3px solid var(--color-detail);
 }
 
 .user-align{
@@ -132,12 +140,12 @@
 
 .user-name{
     font-size: 1rem;
-    color: var(--color-text-title);
+    color: var(--color-text-nav);
 }
 
 .user-tag{
     font-size: .85rem;
-    color: var(--color-text-primary);
+    color: var(--color-detail);
 }
 
 .user-avatar{
@@ -269,7 +277,7 @@
     }
 
     .dropdown-item:focus, .dropdown-item:hover {
-        color: #16181b;
+        color: var(--color-text-nav) !important;
         text-decoration: none;
         background-color: var(--color-detail);
     }

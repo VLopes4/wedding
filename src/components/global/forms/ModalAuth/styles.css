@@ -1,0 +1,18 @@
+.bp{
+    font-family: 'Distant';
+    font-weight: bold;
+    text-align: center;
+    color: var(--color-text-title) !important;
+}
+
+.bep{
+    font-family: 'Roboto';
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.title-singin{
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}

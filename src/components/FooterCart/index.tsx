@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGift, faHeart, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import './styles.css';
+import { useCart } from '../../contexts/cart';
+import { useHistory } from 'react-router';
 
 export default function FooterCart(){
+    const { cart, setTotal } = useCart();
+    const [totalValue, setTotalValue] = useState(0);
+    const history = useHistory();
+
+    useEffect(() => {
+        setTotalValue(cart.reduce((total, item) => total + item.total, 0));
+        setTotal(totalValue);
+    },[cart])
+
     return(
         <footer className="shadow-sm fixed-bottom footer-cart">
             <div className="container py-5">
@@ -13,19 +24,16 @@ export default function FooterCart(){
                             Total da Compra
                         </h5>
                         <span className="total-purchase">
-                            2300
+                            {totalValue.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}
                         </span>
                     </div>
-                    <div className="col-md-6 d-flex align-items-center mx-auto">
-                        <button className="btn btn-cart-buy">
-                            <FontAwesomeIcon icon={faShoppingCart} size="sm"/> Comprar
+                    <div className="col-md-6 mx-auto">
+                        <button className="btn btn-cart-footer" onClick={() => history.push('/order')}>
+                            <FontAwesomeIcon className="mr-2" icon={faCreditCard}/> confirmar pedido
                         </button>
-                        <button className="btn btn-cart-buy">
-                            <FontAwesomeIcon icon={faGift} size="sm"/> Comprado
-                        </button>
-                        <button className="btn btn-cart-buy">
-                            <FontAwesomeIcon icon={faHeart} size="sm"/> Reservar
-                        </button>
+                        <h5 className="text-center mt-2">
+                            Compra segura com PayPal. <a className="security" href="https://www.paypal.com/br/webapps/mpp/paypal-safety-and-security" target="_blank" rel="noopener noreferrer">Saiba mais</a>
+                        </h5>
                     </div>
                 </div>
             </div>

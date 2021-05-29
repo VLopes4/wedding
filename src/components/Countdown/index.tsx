@@ -2,31 +2,30 @@ import React, { useEffect, useState } from 'react';
 import './styles.css';
 
 export default function Countdown() {
-    const remaining = (new Date(2021, 7, 1, 16, 0, 0).getTime() - new Date().getTime()) / 1000;
-    const [days, setDays] = useState(Math.round(remaining / 60 / 60 / 24));
-    const [hours, setHours] = useState(Math.round(remaining / 60 / 60 % 24));
-    const [minutes, setMinutes] = useState(Math.round(remaining / 60 % 60));
-    const [seconds, setSeconds] = useState(Math.round(remaining % 60));
+    const [days, setDays] = useState(0);
+    const [hours, setHours] = useState(0);
+    const [minutes, setMinutes] = useState(0);
+    const [seconds, setSeconds] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
 
     useEffect(() => {
-        if(days > 0){
-            setTimeout(() => {
-                setSeconds(seconds - 1)
-                if(seconds === 0){
-                    setSeconds(60);
-                    setMinutes(minutes - 1);
-                }
-                if(minutes === 0){
-                    setMinutes(60);
-                    setHours(hours - 1);
-                }
-                if(hours === 0){
-                    setHours(24);
-                    setDays(days - 1);
-                }
-            }, 1000)
+        const timer = setTimeout(() => {
+            setTimeLeft(calculateTimeLeft);
+        }, 1000);
+        
+        return () => clearTimeout(timer);
+    });
+
+    function calculateTimeLeft() {
+        let difference = new Date(2021, 7, 1, 16, 0, 0).getTime() - new Date().getTime();
+
+        if(difference > 0){
+            setDays(Math.floor(difference / (1000 * 60 * 60 * 24)));
+            setHours(Math.floor((difference / (1000 * 60 * 60)) % 24));
+            setMinutes(Math.floor((difference / 1000 / 60) % 60));
+            setSeconds(Math.floor((difference / 1000) % 60));
         }
-    },[seconds, minutes, hours, days]);
+    }
 
     return(
         <div className="container-countdown">
@@ -37,10 +36,10 @@ export default function Countdown() {
                 <span>{seconds}</span>
             </div>
             <div className="label-countdown">
-                <span>dias</span>
-                <span>horas</span>
-                <span>minutos</span>
-                <span>segundos</span>
+                <span>{days > 1 ? 'dias' : 'dia'}</span>
+                <span>{hours > 1 ? 'horas' : 'hora'}</span>
+                <span>{minutes > 1 ? 'minutos' : 'minuto'}</span>
+                <span>{seconds > 1 ? 'segundos' : 'segundo'}</span>
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImages, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Header from '../../components/global/Header';
-import Publication from '../../components/Publication';
+import Publication from '../../components/global/Publication';
 import imgProfile from '../../assets/images/profile.png';
 import 'react-circular-progressbar/dist/styles.css';
 import './styles.css';
@@ -131,7 +131,7 @@ export default function Message(){
                         </div>
                     </div>
                 </div>
-                <Publication/>
+                <Publication classNames=''/>
             </section>
         </>
     );

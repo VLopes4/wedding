@@ -12,3 +12,40 @@
     margin-left: 3rem;
     color: var(--color-text-nav);
 }
+
+.kill-filter{
+    margin-top: .5rem !important;
+    color: var(--color-detail) !important;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: .5s all ease;
+}
+
+.kill-filter:hover{
+    color: var(--color-detail-secundary) !important;
+}
+
+.card-gift-img{
+    width: 100% !important;
+}
+
+.card-gift{
+    height: 41rem;
+}
+
+.card-gift-footer{
+    border: 0;
+    background-color: var(--background-color-body);
+}
+
+@media (max-width: 767.5px) {
+    .card-gift-img{
+        width: 75% !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card-gift{
+        height: auto;
+    }
+}

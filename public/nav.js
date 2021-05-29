@@ -6,7 +6,7 @@ $(document).ready(function(){
         $('body').toggleClass("offcanvas-active");
     });
     
-    $(".btn-close").click(function(e){
+    $(".btn-close-nav").click(function(e){
         $(".navbar-collapse").removeClass("show");
         $("body").removeClass("offcanvas-active");
     }); 

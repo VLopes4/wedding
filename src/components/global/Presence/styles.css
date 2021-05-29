@@ -1,3 +1,63 @@
 .bg-presence{
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
 }
+
+.text-confirm{
+    color: var(--color-text-nav) !important;
+    text-align: center;
+    margin-bottom: 0 !important;
+}
+
+.text-recuse {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #a70000 !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-confirm{
+    background-color: #0e700e !important;
+    color: var(--color-text-nav) !important;
+    border-color: #0e700e;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all ease 500ms;
+}
+
+.btn-confirm:hover{
+    background-color: #0e700eaf !important;
+    color: var(--color-text-nav) !important;
+    border-color:  #0e700eaf;
+    font-weight: bold;
+}
+
+.btn-confirm:focus{
+    color: var(--color-text-nav) !important;
+    border-color: #0e700eaf;
+    box-shadow: 0 0 0 0.2rem #0e700eaf;
+
+}
+
+.btn-recused{
+    background-color: #a70000 !important;
+    color: var(--color-text-nav) !important;
+    border-color: #a70000;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all ease 500ms;
+}
+
+.btn-recused:hover{
+    background-color: #a70000af !important;
+    color: var(--color-text-nav) !important;
+    border-color:  #a70000af;
+    font-weight: bold;
+}
+
+.btn-recused:focus{
+    color: var(--color-text-nav) !important;
+    border-color: #a70000af;
+    box-shadow: 0 0 0 0.2rem #a70000af;
+
+}

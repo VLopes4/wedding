@@ -15,6 +15,9 @@ interface AuthContextData {
         password: string,
     ): Promise<void>;
     signOut(): void;
+    confirmPassword(
+        password: string
+    ): Promise<boolean | void>;
     forgotIt(
         email: string
     ): Promise<void>;
@@ -27,9 +30,6 @@ interface AuthContextData {
         surname: string,
         email: string,
         password: string,
-        phone: string, 
-        birth: string, 
-        genre: string
     ): Promise<void>;
 }
 
@@ -44,8 +44,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     useEffect(() => {
         function loadStorageData(){
-            const storagedProfile = localStorage.getItem('@Sad:Profile');
-            const storagedToken = localStorage.getItem('@Sad:Token');
+            const storagedProfile = localStorage.getItem('@SadBP:Profile');
+            const storagedToken = localStorage.getItem('@SadBP:Token');
 
             if(storagedProfile && storagedToken){
                 api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
@@ -71,9 +71,9 @@ export const AuthProvider: React.FC = ({ children }) => {
                     console.log(response.data.error);
                 }
 
-                localStorage.removeItem('@Sad:Profile');
+                localStorage.removeItem('@SadBP:Profile');
                 setProfile(response.data);
-                localStorage.setItem('@Sad:Profile', JSON.stringify(response.data));
+                localStorage.setItem('@SadBP:Profile', JSON.stringify(response.data));
             }
         } catch (error) {
             console.log(error)
@@ -97,11 +97,11 @@ export const AuthProvider: React.FC = ({ children }) => {
             const userId = Number(response.data.user_id);
 
             api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
-            localStorage.setItem('@Sad:Token', response.data.token);
+            localStorage.setItem('@SadBP:Token', response.data.token);
 
             const responseProfile = await api.get(`/profile/${userId}`);
             setProfile(responseProfile.data);
-            localStorage.setItem('@Sad:Profile', JSON.stringify(responseProfile.data));
+            localStorage.setItem('@SadBP:Profile', JSON.stringify(responseProfile.data));
             
             setLoadingForm(false);
             setLogin(true);
@@ -114,8 +114,21 @@ export const AuthProvider: React.FC = ({ children }) => {
     function signOut() {
         setProfile(null);
         setLogin(false);
-        localStorage.removeItem('@Sad:Token');
-        localStorage.removeItem('@Sad:Profile');
+        localStorage.removeItem('@SadBP:Token');
+        localStorage.removeItem('@SadBP:Profile');
+    }
+
+    async function confirmPassword(password: string) {
+        try {
+            const response = await api.post('/user/confirm', { password });
+            if(response.data.error){
+                setMsg(response.data.error);
+                return false;
+            }
+            return true;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async function forgotIt(email: string) {
@@ -142,13 +155,13 @@ export const AuthProvider: React.FC = ({ children }) => {
         }
     }
 
-    async function register(name: string, surname: string, email: string, password: string, phone: string, birth: string, genre: string) {
-        if(name === "" || surname === "" || email === "" || password === "" || phone === "" || birth === "" || genre === "") {
+    async function register(name: string, surname: string, email: string, password: string) {
+        if(name === "" || surname === "" || email === "" || password === "") {
             return setMsg('Preencha todos os campos corretamente antes de continuar.')
         }
 
         try {
-            const response = await api.post('/register', { name, surname, email, password, phone, birth, genre });
+            const response = await api.post('/register', { name, surname, email, password });
 
             if(response.data.error){
                 setMsg(response.data.error);
@@ -163,11 +176,11 @@ export const AuthProvider: React.FC = ({ children }) => {
             }
 
             api.defaults.headers.Authorization = `Bearer ${responseSession.data.token}`;
-            localStorage.setItem('@Sad:Token', responseSession.data.token);
+            localStorage.setItem('@SadBP:Token', responseSession.data.token);
 
             const responseProfile = await api.get(`/profile/${userId}`);
             setProfile(responseProfile.data);
-            localStorage.setItem('@Sad:Profile', JSON.stringify(responseProfile.data));
+            localStorage.setItem('@SadBP:Profile', JSON.stringify(responseProfile.data));
             
             setLogin(true);
         } catch (error) {
@@ -178,7 +191,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     return (
         <AuthContext.Provider
-            value={{ signed: login, profile, loading, loadingForm, message: msg, updateProfile, signIn, signOut, forgotIt, reset, register }}
+            value={{ signed: login, profile, loading, loadingForm, message: msg, updateProfile, signIn, signOut, confirmPassword, forgotIt, reset, register }}
         >
             {children}
         </AuthContext.Provider>

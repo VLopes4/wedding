@@ -18,7 +18,8 @@
 
 :root {
     --background-color-body: #ffffff;
-    --background-color-detail: #f0f1f3;
+    --background-color-detail: #ebebeb;
+    --background-color-detail-primary: #f4f4f4;
     --background-color-nav: #4b006f;
     --background-color: #18181b;
     --background-color-primary: #0e0e10;
@@ -31,8 +32,11 @@
     --color-detail: #c2a9e2;
     --color-detail-primary: #907ea0;
     --color-detail-secundary: #4b006f;
+    --color-detail-tertiary: #6c009e;
     --color-border: rgba(0,0,0,.125);
     --color-border-primary: rgba(118, 118, 118, 0.3);
+    --color-shadow: rgba(0,0,0,.075);
+    --color-transparent: rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-scrollbar {
@@ -98,12 +102,23 @@ a:hover {
     text-transform: uppercase;
 }
 
+.text-detail {
+    color: var(--color-detail);
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
 .color-w {
     color: var(--color-text-nav) !important;
 }
 
 .color-d{
     color: var(--color-detail-secundary) !important;
+}
+
+.card-w-100{
+    width: 100% !important;
 }
 
 .card-w-50{
@@ -166,46 +181,68 @@ a:hover {
     height: 0% !important;
 }
 
+.h-form{
+    height: calc(1.5em + .75rem + 2px);
+}
+
 .btn-primary{
     background-color: var(--color-detail-secundary) !important;
-    color: var(--color-text-nav);
+    color: var(--color-text-nav) !important;
     border-color: var(--color-detail-secundary);
     text-transform: uppercase;
     font-weight: bold;
     transition: all ease 500ms;
-    height: 50px;
 }
 
 .btn-primary:hover{
-    background-color: var(--color-detail-secundary) !important;
-    border-color:  var(--color-detail);
-    color: var(--color-detail);
+    background-color: var(--color-detail-tertiary) !important;
+    color: var(--color-text-nav) !important;
+    border-color:  var(--color-detail-tertiary);
     font-weight: bold;
 }
 
 .btn-primary:focus{
-    color: var(--color-text-title);;
-    background-color: rgb(19, 18, 23) !important;
+    color: var(--color-text-nav) !important;
     border-color: var(--color-detail-secundary);
     box-shadow: 0 0 0 0.2rem var(--color-detail);
+}
 
+.btn-secundary{
+    background-color: var(--background-color-detail) !important;
+    color: var(--color-detail-secundary) !important;
+    border-color: var(--color-detail-secundary);
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all ease 500ms;
+}
+
+.btn-secundary:hover{
+    background-color: var(--background-color-body) !important;
+    color: var(--color-detail-tertiary) !important;
+    border-color:  var(--color-detail-tertiary);
+    font-weight: bold;
+}
+
+.btn-secundary:focus{
+    color: var(--color-detail-tertiary) !important;
+    border-color: var(--color-detail-tertiary);
+    box-shadow: 0 0 0 0.2rem var(--color-detail);
 }
 
 .btn-input{
     width: 100%;
     font-weight: bold;
-    color: #fff;
-    border: 2px solid rgb(37, 36, 44);
-    background-color: rgb(19, 18, 23);
+    color: var(--color-detail-secundary);
+    border: 1px solid rgb(37, 36, 44);
+    background-color: var(--color-detail);
     border-radius: 5px;
-    transition: all .9s;
-    height: 50px;
+    transition: all ease 500ms;
 }
 
 .btn-input:hover{
-    color: #fff;
-    border: solid 2px var(--color-detail-secundary);
-    animation: glow 1.5s infinite;
+    color: var(--color-detail-secundary);
+    border: solid 1px var(--color-detail-secundary);
+    background-color: var(--background-color-body);
 }
 
 .btn.focus, .btn:focus {
@@ -218,25 +255,21 @@ a:hover {
 }
 
 .message{
-    color: var(--color-detail-secundary);
+    color: var(--color-detail-secundary) !important;
     transition: all ease 300ms;
+    text-align: center;
 }
 
 .resize-none{
     resize: none;
 }
 
-.border-t{
-    border-top: 1px solid var(--background-color-detail);
+.border-top{
+    border-top: 2px solid var(--color-detail) !important;
 }
 
-.border-b{
-    border-bottom: 1px solid var(--background-color-detail);
-}
-
-.border-t-b{
-    border-top: 1px solid var(--background-color-detail);
-    border-bottom: 1px solid var(--background-color-detail);
+.border-bottom{
+    border-bottom: 2px solid var(--color-detail) !important;
 }
 
 .access-link{

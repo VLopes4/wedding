@@ -1,0 +1,21 @@
+.order-header{
+    background-color: var(--background-color-body);
+    border: none;
+}
+
+.order-cart-title{
+    margin-top: .2rem;
+    font-weight: bold;
+}
+
+.order-cart-icon-goback{
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 2rem;
+    transition: .5s all;
+    color: var(--color-detail);
+}
+
+.order-cart-icon-goback:hover{
+    color: var(--color-detail-secundary);
+}
