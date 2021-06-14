@@ -37,6 +37,8 @@
     --color-border-primary: rgba(118, 118, 118, 0.3);
     --color-shadow: rgba(0,0,0,.075);
     --color-transparent: rgba(0, 0, 0, 0.5);
+    --color-success: #0e700e;
+    --color-cancel: #a70000;
 }
 
 ::-webkit-scrollbar {
@@ -135,6 +137,10 @@ a:hover {
 
 .mt-10 {
     margin-top: 8rem;
+}
+
+.mt-12 {
+    margin-top: 13rem;
 }
 
 .mt-20 {
@@ -284,6 +290,18 @@ a:hover {
 
 .title-secundary{
     color: var(--color-gray);
+}
+
+.success{
+    color: var(--color-success) !important;
+}
+
+.cancel{
+    color: var(--color-cancel) !important;
+}
+
+.wwb{
+    word-wrap: break-word
 }
 
 @keyframes glow {

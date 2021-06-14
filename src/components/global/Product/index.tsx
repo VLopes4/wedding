@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faCreditCard, faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useLoad } from '../../../contexts/load';
 import { useCart } from '../../../contexts/cart';
+import { useAuth } from '../../../contexts/auth';
 import { Gift } from '../../../models/Gift';
 import FormProduct from '../../forms/Product';
-import { useAuth } from '../../../contexts/auth';
+import imgSoldOut from '../../../assets/images/soldOut.png';
 
 interface ProductProps {
     data: Gift;
@@ -56,6 +57,11 @@ export const Product: React.FC<ProductProps> = ({ data }) => {
         <div key={data.id} className="col-md-4">
             <div className="card mb-4 shadow-sm card-gift">
                 <img className="card-img-top card-gift-img" alt={data.name} src={data.photograph}/>
+                {data.status > 0 && (
+                    <div className="sold-out">
+                        <img className="img-sold-out" src={imgSoldOut} alt="Presenteado" title="Presenteado" />
+                    </div>
+                )}
                 <div className="card-body">
                     <h5 className="card-title text-center">
                         {data.name}
@@ -68,12 +74,20 @@ export const Product: React.FC<ProductProps> = ({ data }) => {
                     </h6>
                 </div>
                 <div className="card-footer card-gift-footer">
-                    <button className="btn btn-secundary w-100 mx-auto my-2" onClick={handleAddCart}>
-                        <FontAwesomeIcon icon={faCartPlus}/> Adicionar
-                    </button>
-                    <button className="btn btn-primary w-100 mx-auto my-2" onClick={handleGoOrder}>
-                        <FontAwesomeIcon icon={faCreditCard}/> Comprar
-                    </button>
+                    {data.status > 0 ? (
+                        <h5 className="title">
+                            Presenteado
+                        </h5>
+                    ) : (
+                        <>
+                            <button className="btn btn-secundary w-100 mx-auto my-2" onClick={handleAddCart}>
+                                <FontAwesomeIcon icon={faCartPlus}/> Adicionar
+                            </button>
+                            <button className="btn btn-primary w-100 mx-auto my-2" onClick={handleGoOrder}>
+                                <FontAwesomeIcon icon={faCreditCard}/> Comprar
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

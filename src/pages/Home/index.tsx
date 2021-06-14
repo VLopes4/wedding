@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageGallery from 'react-image-gallery';
+import api from '../../services/api';
+import { Moment, Image } from '../../models/Moment';
 import Countdown from '../../components/Countdown';
+import Footer from '../../components/global/Footer';
 import Header from '../../components/global/Header';
 import Presence from '../../components/global/Presence';
 import './styles.css';
 
 export default function Home() {
+    const [images, setImages] = useState<Image[]>([]);
 
-    const images = [
-        {
-          original: 'https://picsum.photos/id/1018/1000/600/',
-          thumbnail: 'https://picsum.photos/id/1018/250/150/',
-        },
-        {
-          original: 'https://picsum.photos/id/1015/1000/600/',
-          thumbnail: 'https://picsum.photos/id/1015/250/150/',
-        },
-        {
-          original: 'https://picsum.photos/id/1019/1000/600/',
-          thumbnail: 'https://picsum.photos/id/1019/250/150/',
-        },
-    ];
+    useEffect(() => {
+        getMoments();
+    },[])
+
+    async function getMoments(){
+        try {
+            const Items: React.SetStateAction<Image[]> = [];
+            const response = await api.get('/moment');
+            if(response.data.length > 0){
+                response.data.map((moment: Moment) => {
+                    const item = {
+                        original: moment.moment_url,
+                        thumbnail: moment.moment_url,
+                    }
+
+                    Items.push(item);
+
+                    images.length > 0 ? setImages([...images, item]) : setImages(Items)
+                })      
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return(
         <>
@@ -49,8 +63,13 @@ export default function Home() {
                 </p>
                 <ImageGallery 
                     items={images}
+                    slideDuration={1000}
+                    slideInterval={5000}
+                    autoPlay
+                    showIndex
                 />
             </section>
+            <Footer/>
         </>
     )
 }

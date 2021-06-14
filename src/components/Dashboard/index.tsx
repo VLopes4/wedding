@@ -6,8 +6,8 @@ import DashGift from './Gift';
 import { DashCategory } from './Category';
 import { DashGuest } from './Guest';
 import { DashMoment } from './Moment';
-import Party from './Party';
 import Config from './Config';
+import DashParty from './Party';
 
 export default function Dashboard(){
     const [isActive, setIsActive] = useState(0);
@@ -94,7 +94,7 @@ export default function Dashboard(){
                 ) : isActive === 5 ? (
                     <DashMoment/>
                 ) : isActive === 6 && (
-                    <Party/>
+                    <DashParty/>
                 )   
             }
         </>

@@ -128,7 +128,7 @@ export default function Order(){
                                 </p>
                             </div>
                         </div>
-                        <PaymentButtons cart={products} order={order}/>
+                        <PaymentButtons cart={products} order={order} message={message}/>
                     </div>
                 </div>
             </main>

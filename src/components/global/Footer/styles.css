@@ -1,0 +1,60 @@
+.bg-s-dark {
+    background-color: #000;
+    padding: 1rem;
+    margin-top: 5rem;
+}
+
+.cl-s-light-2 {
+    color: #CCC;
+}
+
+.cl-s-light {
+    color: #FFF;
+}
+
+.dev-social{
+    transition: all .5s;
+    color: rgb(202, 5, 5) !important;
+}
+
+.dev-social:hover{
+    color: #900 !important;
+}
+
+.link-social{
+    text-align: center;
+    color: #fff !important;
+}
+
+.link-social:hover{
+    transition: all .5s;
+    color: #900 !important;
+}
+
+.footer-social{
+    margin: .5rem auto;
+}
+
+.icons-social{
+    color: #fff !important;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.icons-social:hover{
+    transition: all 0.5s;
+    color: #900 !important;
+}
+
+.paypal-logo{
+    width: 60% !important;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.paypal-text{
+    color:  #3b7bbf;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}

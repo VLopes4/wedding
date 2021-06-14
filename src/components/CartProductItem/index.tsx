@@ -1,17 +1,21 @@
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useCart } from '../../contexts/cart';
 import { Cart } from '../../models/Cart';
-import { moneyMask } from '../../services/mask';
+import { Sold } from '../../models/Order';
 
 interface ProductItemProps {
-    data: Cart
+    data: Cart;
+}
+
+interface SoldItemProps {
+    data: Sold;
 }
 
 export const CartProductItem: React.FC<ProductItemProps> = ({ data }) => {
     const { addValue } = useCart();
-    const [amount, setAmount] = useState(data.quantity);
+    const [amount] = useState(data.quantity);
     const [value] = useState(data.price);
     const [total] = useState(data.total);
 
@@ -96,6 +100,22 @@ export const OrderProductItem: React.FC<ProductItemProps> = ({ data }) => {
                 </h5>
                 <p>
                     {data.price.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})} - {data.quantity > 1 ? `${data.quantity} unidades` : `${data.quantity} unidade`}
+                </p>
+            </div>
+        </div>
+    );
+}
+
+export const OrderSoldItem: React.FC<SoldItemProps> = ({ data }) => {
+    return(
+        <div className="media order-cart-media">
+            <img src={data.product.photograph} className="w-25 mr-3" alt={data.product.name}/>
+            <div className="media-body">
+                <h5 className="title text-left mt-4 mb-0">
+                    {data.product.name}
+                </h5>
+                <p>
+                    {data.product.price.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})} - {data.quantity > 1 ? `${data.quantity} unidades` : `${data.quantity} unidade`}
                 </p>
             </div>
         </div>

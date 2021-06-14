@@ -14,10 +14,10 @@ export default function Presence(){
         e.preventDefault();
 
         try {
-            const response = await api.get(`/guestlist/search/${name}`);
+            const response = await api.get(`/guestlist/search?name=${name}`);
             if(response.data.error){
                 setMessage(response.data.error);
-                setIsFound(false);
+                return setIsFound(false);
             }
             setGuests(response.data);
             setMessage(response.data.success);

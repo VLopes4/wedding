@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faComment, faGifts, faTh, faPowerOff } from '@fortawesome/free-solid-svg-icons';
-import imgProfile from '../../assets/images/profile.png';
 import { useAuth } from '../../contexts/auth';
-import HeaderGoBack from '../../components/global/HeaderGoBack';
-import Publication from '../../components/global/Publication';
-import Order from '../../components/Order';
-import Dashboard from '../../components/Dashboard';
 import api from '../../services/api';
-import './styles.css';
+import HeaderGoBack from '../../components/global/HeaderGoBack';
+import OrderUser from '../../components/User/Order';
+import Dashboard from '../../components/Dashboard';
 import User from '../../components/User';
+import MessageUser from '../../components/User/Message';
+import imgProfile from '../../assets/images/profile.png';
+import './styles.css';
 
 export default function Profile(){
     const { profile, signOut, updateProfile } = useAuth();
@@ -115,14 +115,9 @@ export default function Profile(){
                             isActive === 0 ? (
                                 <User/>
                             ) : isActive === 1 ? (
-                                <>
-                                    <h2 className="subtitle text-left">
-                                        Mensagens enviadas para os noivos
-                                    </h2>
-                                    <Publication classNames='card-w-100' />
-                                </>
+                                <MessageUser/>
                             ) : isActive === 2 ? (
-                                <Order/>
+                                <OrderUser/>
                             ) : isActive === 3 ? (
                                 <Dashboard/>
                             ) : null

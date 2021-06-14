@@ -7,6 +7,7 @@ import Home from '../pages/Home';
 import Message from '../pages/Message';
 import Order from '../pages/Order';
 import Profile from '../pages/Profile';
+import Status from '../pages/Status';
 
 export default function Routes() {
     return(
@@ -19,6 +20,7 @@ export default function Routes() {
                 <Route path="/event" component={Event}/>
                 <Route path="/cart" component={Cart}/>
                 <Route path="/order" component={Order}/>
+                <Route path="/status" component={Status}/>
             </Switch>
         </BrowserRouter>
     );

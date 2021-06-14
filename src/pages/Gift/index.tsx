@@ -7,6 +7,7 @@ import api from '../../services/api';
 import './styles.css';
 import { Category } from '../../models/Category';
 import { Gift } from '../../models/Gift';
+import Footer from '../../components/global/Footer';
 
 export default function Gifts() {
     const [gifts, setGifts] = useState([]);
@@ -25,7 +26,7 @@ export default function Gifts() {
     }
 
     async function getProducts() {
-        const response = await api.get('/product/query?status=0');
+        const response = await api.get('/product/query');
         setGifts(response.data);
         setCategory(0);
     }
@@ -35,7 +36,7 @@ export default function Gifts() {
 
         if(category > 0){
             try {
-                const response = await api.get(`/product/query?status=0${name && `&name=${name}`}${category > 0 && `&category_id=${category}`}`);
+                const response = await api.get(`/product/query?${name && `&name=${name}`}${category > 0 && `&category_id=${category}`}`);
                 setGifts(response.data);
             } catch (error) {
                 console.log(error);
@@ -116,6 +117,7 @@ export default function Gifts() {
                     }
                 </div>
             </main>
+            <Footer/>
         </>
     );
 }

@@ -1,0 +1,12 @@
+.title-payment{
+    margin-top: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}
+
+.engaged{
+    color: #6c757d!important;
+    font-weight: bold;
+    text-align: center;
+}

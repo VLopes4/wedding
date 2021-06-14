@@ -1,3 +1,12 @@
+.background-event{
+    background-image: url('../../assets/images/flowersBackground.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 65%;
+    height: 100vh;
+}
+
 .mapouter {
     position: relative;
     text-align: right;
@@ -39,4 +48,11 @@
     margin: .1rem 0 -.35rem;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
+}
+
+@media (max-width: 767.5px) {
+    .col-mobile{
+        max-width: 70%;
+        margin-top: 15%;
+    }
 }

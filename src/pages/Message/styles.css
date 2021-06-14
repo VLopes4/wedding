@@ -1,9 +1,9 @@
 .background-message{
-    background-image: url('../../assets/images/couple.png');
+    background-image: url('../../assets/images/brickBackground.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
+    background-position: center 83%;
     height: 100vh;
 }
 

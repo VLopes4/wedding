@@ -7,4 +7,5 @@ export interface Gift {
     name: string;
     description: string;
     price: number;
+    status: number;
 }
