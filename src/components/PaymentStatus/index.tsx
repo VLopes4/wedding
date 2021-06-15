@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { faCheckCircle, faTimesCircle,  } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuth } from '../../contexts/auth';
 import './styles.css';
+import { useEffect } from 'react';
 
 export function Success(){
     const { profile } = useAuth();
+    const [scroll, setScroll] = useState(0);
+    const [status, setStatus] = useState('col-md-6')
+
+    useEffect(() => {
+        window.onscroll = () => handleScroll();
+    }, [scroll])
+
+    function handleScroll(){
+        if(document.documentElement.scrollTop > 150){
+            setStatus('col-md-6 success-fixed');
+        } else {
+            setStatus('col-md-6');
+        }
+
+        setScroll(document.documentElement.scrollTop);
+    }
+
+    useEffect(() => {
+        localStorage.removeItem('@SadBP:Cart')
+        localStorage.removeItem('@SadBP:CartCount');
+    },[])
 
     return(
-        <>
+        <div className={status}>
             <div className="row mt-5">
                 <FontAwesomeIcon className="mx-auto" icon={faCheckCircle} size="9x" color="#0e700e"/>
             </div>
@@ -16,16 +38,17 @@ export function Success(){
                 Pagamento aprovado
             </h2>
             <p className="text-justify">
-                Parabéns {profile?.name}, seu pagamento foi aprovado com sucesso, você poderá ver a lista de presentes no seu perfil,
-                em caso de reembolso entre em contato com os noivos
+                Parabéns {profile?.name}, seu pagamento foi aprovado, você poderá ver a lista de presentes no seu perfil e
+                em caso de reembolso entre em contato com os noivos. Você poderá enviar uma mensagem de carinho (cartão presente)
+                junto com o presente comprado, e essa mensagem é particular ela será exibida somente aos noivos.
             </p>
             <p className="text-center mb-0">
-                Agradecemos pela sua consideração e todo carinho demonstrado por nós
+                Agradecemos pela sua consideração e todo carinho demonstrado
             </p>
             <h6 className="engaged">
                 Bruno & Pamella
             </h6>
-        </>
+        </div>
     );
 }
 

@@ -9,4 +9,25 @@
     color: #6c757d!important;
     font-weight: bold;
     text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.success-fixed {
+    position: fixed !important;
+    max-width: 37%;
+    top: 7%;
+}
+
+.order-message{
+    background-color: var(--background-color-body);
+    display: flex;
+}
+
+
+@media screen and (max-width: 770px){
+    .success-fixed {
+        position: relative !important;
+        max-width: 100% !important;
+        top: 0 !important;
+    }
 }

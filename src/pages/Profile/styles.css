@@ -148,6 +148,19 @@
     transition: all 0.2s ease 0s;
 }
 
+.card-message-header{
+    display: flex;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--background-color-body);
+}
+
+.order-card-message{
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+}
+
 @media screen and (max-width: 770px){
     .card-fixed {
         position: relative !important;

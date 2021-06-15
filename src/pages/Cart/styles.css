@@ -148,6 +148,18 @@
     border: 1px solid var(--color-border-primary);
 }
 
+.remove-cart{
+    cursor: pointer;
+    text-align: left;
+    transition: .9 all ease;
+    text-transform: uppercase;
+    color: var(--color-cancel) !important;
+}
+
+.remove-cart:hover{
+    text-decoration: underline;
+}
+
 @media (min-width: 1024px){
     .nav-information {
         padding: 0;
@@ -261,6 +273,10 @@
     }
     
     .amount{
+        text-align: center;
+    }
+
+    .remove-cart{
         text-align: center;
     }
 }

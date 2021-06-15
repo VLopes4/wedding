@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { faCommentAlt, faLongArrowAltLeft, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faLongArrowAltLeft, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { PaymentButtons } from '../../components/global/PayPalButtons';
 import { useCart } from '../../contexts/cart';
+import { useAuth } from '../../contexts/auth';
+import { useLoad } from '../../contexts/load';
 import { Cart } from '../../models/Cart';
-import HeaderGoBack from '../../components/global/HeaderGoBack';
-import { OrderProductItem } from '../../components/CartProductItem';
-import './styles.css';
 import { PurchaseItem, Category } from '../../models/PayPal';
+import { PaymentButtons } from '../../components/global/PayPalButtons';
+import { OrderProductItem } from '../../components/CartProductItem';
+import HeaderGoBack from '../../components/global/HeaderGoBack';
 import HeaderNav from '../../components/global/HeaderPaymentNav';
+import './styles.css';
 
 export default function Order(){
+    const { profile } = useAuth();
     const { cart, setTotal } = useCart();
+    const { isLoading } = useLoad();
     const [totalValue, setTotalValue] = useState(0);
     const [products] = useState(cart);
-    const [isChecked, setIsChecked] = useState(false);
-    const [message, setMessage] = useState('');
-    const [order, setOrder] = useState<PurchaseItem[]>([])
+    const [order, setOrder] = useState<PurchaseItem[]>([]);
     const history = useHistory();
 
     useEffect(() => {
@@ -26,14 +28,6 @@ export default function Order(){
 
         setCartValues()
     },[cart])
-
-    useEffect(() => {
-        if(isChecked){
-            setMessage('Parabéns pelo casamento, que Deus abençoe a união de vocês.');
-        } else {
-            setMessage('');
-        }
-    },[isChecked])
 
     async function setCartValues(){
         let product: PurchaseItem[] = [];
@@ -91,44 +85,19 @@ export default function Order(){
                         </div>
                     </div>
                     <div className="col-md-6">
-                        <div className="card mb-3">
-                            <div className="card-header order-header">
-                                <h5 className="order-cart-title">
-                                    <FontAwesomeIcon icon={faCommentAlt}/> ENVIAR MENSAGEM
-                                </h5>
-                            </div>
-                            <div className="card-body">
-                                <div className="form-group">
-                                    <textarea 
-                                        className="form-control resize-none"
-                                        rows={3}
-                                        onChange={event => setMessage(event.target.value)}
-                                        value={message}
-                                        disabled={isChecked}
-                                    >
-                                    </textarea>
+                        <h6 className="text-justify mb-3">
+                            {profile?.name}, essa compra é gerenciada e protegida pelo <a href="https://www.paypal.com/br/webapps/mpp/purchase-protection" target="_blank" rel="noopener noreferrer"><span className="pay">Pay</span><span className="pal">Pal</span></a>,
+                            confira os itens do seu carrinho e os detalhes do pagamento antes de confirmar a ordem do pedido.
+                        </h6>
+                        <PaymentButtons cart={products} order={order}/>
+                        {isLoading && (
+                            <h3 className="text-center color-d">
+                                Processando pagamento, aguarde
+                                <div className="spinner-border color-d ml-3" role="status">
+                                    <span className="sr-only">Loading...</span>
                                 </div>
-                                <div className="form-check">
-                                    <input 
-                                        className="form-check-input"
-                                        id="defaultCheck"
-                                        type="checkbox"
-                                        onChange={() => setIsChecked(!isChecked)}
-                                        checked={isChecked}
-                                    />
-                                    <label className="form-check-label" htmlFor="defaultCheck">
-                                        Enviar mensagem padrão
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="card-footer">
-                                <p className="mb-0">
-                                    Envie uma mensagem de carinho junto com o presente. Essa mensagem é
-                                    particular e será exibida somente aos noivos.
-                                </p>
-                            </div>
-                        </div>
-                        <PaymentButtons cart={products} order={order} message={message}/>
+                            </h3>
+                        )}
                     </div>
                 </div>
             </main>

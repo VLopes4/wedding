@@ -7,21 +7,20 @@ import './styles.css';
 export default function Presence(){
     const [name, setName] = useState('');
     const [guests, setGuests] = useState([]);
-    const [isFound, setIsFound] = useState(false);
     const [message, setMessage] = useState('');
     
     async function handleSearch(e: FormEvent) {
         e.preventDefault();
+        setGuests([]);
 
         try {
             const response = await api.get(`/guestlist/search?name=${name}`);
             if(response.data.error){
-                setMessage(response.data.error);
-                return setIsFound(false);
+                return setMessage(response.data.error);
             }
-            setGuests(response.data);
+            console.log(response.data)
+            setGuests(response.data.guestList);
             setMessage(response.data.success);
-            if(!isFound) setIsFound(true);
         } catch (error) {
             console.log(error);
         }
@@ -37,7 +36,7 @@ export default function Presence(){
                     Faça parte da nossa história confirmando a sua presença e a da sua família.
                 </p>
                 <div className="row">
-                    <div className={isFound ? "col-md-6 mt-5" : "col-md-6 mx-auto"}>
+                    <div className={guests.length > 0 ? "col-md-6 mt-5" : "col-md-6 mx-auto"}>
                         <form onSubmit={handleSearch}>
                             <div className="form-group">
                                 <input 
@@ -58,7 +57,7 @@ export default function Presence(){
                             </p>
                         )}
                     </div>
-                    {isFound && (
+                    {guests.length > 0 && (
                         <div className="col-md-6 mt-5">
                             {guests.map((guest: Guest) => {
                                 return <CardGuest key={guest.id} data={guest}/>

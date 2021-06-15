@@ -4,12 +4,13 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faImages, faTimes } from '@fortawesome/free-solid-svg-icons';
 import api from '../../services/api';
+import { Post } from '../../models/Post';
 import Header from '../../components/global/Header';
 import Publication from '../../components/global/Publication';
 import Footer from '../../components/global/Footer';
+import imgProfile from '../../assets/images/profile.png';
 import 'react-circular-progressbar/dist/styles.css';
 import './styles.css';
-import { Post } from '../../models/Post';
 
 export default function Message(){
     const { profile } = useAuth();
@@ -20,7 +21,7 @@ export default function Message(){
 
     useEffect(() => {
         getPosts();
-    },[]);
+    },[posts]);
 
     async function getPosts(){
         try {
@@ -104,14 +105,14 @@ export default function Message(){
                             <form onSubmit={handleSubmit}>
                                 <div className="row mx-2 py-2">
                                     <img 
-                                        src={profile?.avatar_url} 
+                                        src={ profile?.avatar ? profile.avatar_url  : imgProfile }
                                         alt="Avatar" 
                                         className="user-avatar mx-auto"
                                     />
                                     <textarea 
                                         className="form-control message-text" 
                                         rows={message.length < 103 ? 2 : message.length < 206 ? 4 : message.length < 309 ? 6 : message.length < 412 ? 8 : 10} 
-                                        placeholder={`No que você está pensando, Vinicius? Deixe uma mensagem para os noivos`}
+                                        placeholder={`No que você está pensando, ${profile.name}? Deixe uma mensagem para os noivos`}
                                         value={message}
                                         onChange={event => setMessage(event.target.value)}
                                         maxLength={500}

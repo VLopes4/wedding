@@ -9,6 +9,9 @@ interface CartContextData {
     addProduct(
         item: Cart
     ): Promise<void>;
+    killProduct(
+        item: Cart
+    ): Promise<void>;
     addValue(
         item: Cart,
         addOrRemove: boolean
@@ -28,6 +31,20 @@ export const CartProvider: React.FC = ({ children }) => {
     const [quantity, setQuantity] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
 
+    useEffect(() => {
+        function loadStorageData(){
+            const storageCart = localStorage.getItem('@SadBP:Cart');
+            const storageCount = localStorage.getItem('@SadBP:CartCount');
+
+            if(storageCart){
+                setCart(JSON.parse(storageCart));
+                setQuantity(Number(storageCount));
+            }
+        }
+
+        loadStorageData();
+    },[])
+
     async function addProduct(item: Cart) {
         const verifyItem = cart.findIndex(product => product.sku === item.sku);
 
@@ -41,6 +58,16 @@ export const CartProvider: React.FC = ({ children }) => {
         }
         
         setQuantity(cart.length + 1);
+    }
+
+    async function killProduct(item: Cart) {
+        const findItem = cart.findIndex(product => product.sku === item.sku);
+
+        if(findItem > -1){
+            cart.splice(findItem, 1);
+            setCart([...cart]);
+            setQuantity(quantity - 1);
+        }
     }
 
     async function addValue(item: Cart, addOrRemove: boolean) {
@@ -73,7 +100,7 @@ export const CartProvider: React.FC = ({ children }) => {
     }
 
     return (
-        <CartContext.Provider value={{ cart, quantity, totalValue, addProduct, addValue, setTotal, addItem }}>
+        <CartContext.Provider value={{ cart, quantity, totalValue, addProduct, killProduct, addValue, setTotal, addItem }}>
             {children}
         </CartContext.Provider>
     );

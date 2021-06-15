@@ -1,3 +1,9 @@
 .space-avatar-name{
     margin: 0 .75rem 0 .5rem;
 }
+
+.publication-name{
+    margin-bottom: 0;
+    text-transform: capitalize;
+    color: var(--color-detail-secundary) !important; 
+}

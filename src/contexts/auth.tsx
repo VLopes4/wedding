@@ -114,8 +114,11 @@ export const AuthProvider: React.FC = ({ children }) => {
     function signOut() {
         setProfile(null);
         setLogin(false);
+        localStorage.removeItem('@SadBP:Cart')
         localStorage.removeItem('@SadBP:Token');
         localStorage.removeItem('@SadBP:Profile');
+        localStorage.removeItem('@SadBP:Remember');
+        localStorage.removeItem('@SadBP:CartCount');
     }
 
     async function confirmPassword(password: string) {
@@ -160,6 +163,8 @@ export const AuthProvider: React.FC = ({ children }) => {
             return setMsg('Preencha todos os campos corretamente antes de continuar.')
         }
 
+        setLoadingForm(true);
+
         try {
             const response = await api.post('/register', { name, surname, email, password });
 
@@ -183,8 +188,10 @@ export const AuthProvider: React.FC = ({ children }) => {
             localStorage.setItem('@SadBP:Profile', JSON.stringify(responseProfile.data));
             
             setLogin(true);
+            setLoadingForm(false);
         } catch (error) {
-            console.log(error);
+            setLoadingForm(false);
+            setLoading(false);
             setMsg('Erro ao realizar o seu registro, tente novamente.')
         }
     }

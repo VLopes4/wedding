@@ -5,14 +5,16 @@ import { Cart } from '../../../models/Cart';
 import { PurchaseItem } from '../../../models/PayPal';
 import { useHistory } from 'react-router';
 import api from '../../../services/api';
+import { useLoad } from '../../../contexts/load';
+
 interface PaymentButtonsProps{
     cart: Cart[];
     order: PurchaseItem[];
-    message: string;
 }
 
-export const PaymentButtons: React.FC<PaymentButtonsProps> = ({ cart, order, message }) => {
+export const PaymentButtons: React.FC<PaymentButtonsProps> = ({ cart, order }) => {
     const [total] = useState(cart.reduce((total, item) => total + item.total, 0).toFixed(2));
+    const { load, loaded } = useLoad();
     const history = useHistory();
 
     async function createOrder(data: UnknownObject, actions: CreateOrderActions){
@@ -35,21 +37,22 @@ export const PaymentButtons: React.FC<PaymentButtonsProps> = ({ cart, order, mes
     }
 
     async function onApprove(data: OnApproveData, actions: OnApproveActions){
+        load()
         try {
             const approve = await actions.order.capture();    
 
             const response = await api.post('/order', { payment_id: approve.id, total, status: String(approve.status) });
-            
-            if(message !== '') await api.post('/message/gift', { order_id: response.data.id, message });
 
             cart.map(async sold => {
                 await api.post('/sold', { order_id: response.data.id, product_id: sold.sku, quantity: sold.quantity, total: sold.total });
             });
 
+            loaded();
             const props = { id: response.data.id, success: true, error: '' }
 
             history.push('/status', props)
         } catch (error) {
+            loaded();
             throw new Error('erro ao aprovar ordem de pagamento');
         }
     }

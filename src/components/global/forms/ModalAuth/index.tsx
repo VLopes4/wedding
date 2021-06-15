@@ -1,11 +1,12 @@
 import React, { FormEvent, useState } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../../../contexts/auth';
 import './styles.css';
 
 export default function ModalAuth(){
     let history = useHistory();
-    const { signIn, register, message } = useAuth();
+    const { signIn, register, message, loadingForm } = useAuth();
     const [isLogin, setIsLogin] = useState(true);
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -15,6 +16,13 @@ export default function ModalAuth(){
     const [formMessage, setFormMessage] = useState('');
     const [remember, setRemember] = useState(false);
 
+    useEffect(() => {
+        const remember = localStorage.getItem('@SadBP:Remember');
+        if(remember){
+            setEmail(remember);
+        }
+    },[])
+
     async function handleRegister(e: FormEvent) {
         e.preventDefault()
         if(password !== confirmPassword){
@@ -22,6 +30,7 @@ export default function ModalAuth(){
         }
         try {
             await register(name, surname, email, password);
+            message === '' && history.go(0)
         } catch (error) {
             console.log(error);
         }
@@ -47,6 +56,11 @@ export default function ModalAuth(){
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header border-0">
+                        {loadingForm && (
+                            <div className="spinner-border color-d" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        )}
                         <button type="button" className="close btn" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

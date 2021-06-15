@@ -5,7 +5,7 @@ import { faEdit, faComment, faGifts, faTh, faPowerOff } from '@fortawesome/free-
 import { useAuth } from '../../contexts/auth';
 import api from '../../services/api';
 import HeaderGoBack from '../../components/global/HeaderGoBack';
-import OrderUser from '../../components/User/Order';
+import { OrderUser, OrderAdmin } from '../../components/User/Order';
 import Dashboard from '../../components/Dashboard';
 import User from '../../components/User';
 import MessageUser from '../../components/User/Message';
@@ -92,18 +92,29 @@ export default function Profile(){
                             </div>
                         </div>
                         <nav className="nav flex-column mt-3">
-                            <Link to="#" onClick={() => { setIsActive(1) }} className={isActive === 1 ? 'link-profile link-profile-active' : 'link-profile'}>
-                                <span>Mensagens</span>
-                                <FontAwesomeIcon icon={faComment} size="lg"/>
-                            </Link>
-                            <Link to="#" onClick={() => { setIsActive(2) }} className={isActive === 2 ? 'link-profile link-profile-active' : 'link-profile'}>
-                                <span>Presentes</span>
-                                <FontAwesomeIcon icon={faGifts} size="lg"/>
-                            </Link>
-                            <Link to="#" onClick={() => { setIsActive(3) }} className={isActive === 3 ? 'link-profile link-profile-active' : 'link-profile'}>
-                                <span>Dashboard</span>
-                                <FontAwesomeIcon icon={faTh} size="lg"/>
-                            </Link>
+                            {profile && profile.user.level > 2 ? (
+                                <>
+                                    <Link to="#" onClick={() => { setIsActive(3) }} className={isActive === 3 ? 'link-profile link-profile-active' : 'link-profile'}>
+                                        <span>Presentes</span>
+                                        <FontAwesomeIcon icon={faGifts} size="lg"/>
+                                    </Link>
+                                    <Link to="#" onClick={() => { setIsActive(4) }} className={isActive === 4 ? 'link-profile link-profile-active' : 'link-profile'}>
+                                        <span>Dashboard</span>
+                                        <FontAwesomeIcon icon={faTh} size="lg"/>
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <Link to="#" onClick={() => { setIsActive(1) }} className={isActive === 1 ? 'link-profile link-profile-active' : 'link-profile'}>
+                                        <span>Mensagens</span>
+                                        <FontAwesomeIcon icon={faComment} size="lg"/>
+                                    </Link>
+                                    <Link to="#" onClick={() => { setIsActive(2) }} className={isActive === 2 ? 'link-profile link-profile-active' : 'link-profile'}>
+                                        <span>Presentes</span>
+                                        <FontAwesomeIcon icon={faGifts} size="lg"/>
+                                    </Link>
+                                </>
+                            )}
                             <Link to="#" onClick={() => { signOut(); }} className="link-profile link-logoff">
                                 <span>SAIR DA MINHA CONTA</span>
                                 <FontAwesomeIcon icon={faPowerOff} size="lg"/>
@@ -119,8 +130,10 @@ export default function Profile(){
                             ) : isActive === 2 ? (
                                 <OrderUser/>
                             ) : isActive === 3 ? (
+                                <OrderAdmin/>
+                            ) : isActive === 4 && (
                                 <Dashboard/>
-                            ) : null
+                            )
                         }
                     </div>
                 </div>

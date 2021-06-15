@@ -19,3 +19,39 @@
 .order-cart-icon-goback:hover{
     color: var(--color-detail-secundary);
 }
+
+.card-image{
+    position: relative;
+}
+
+.card-image-text{
+    position: absolute;
+    top: 9rem;
+    left: 3rem;
+    width: 80%;
+}
+
+.text-gift-card{
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+.progress-label{
+    margin-left: auto;
+    width: 20%;
+}
+
+.pay{
+    color: #29507a;
+    font-weight: bold;
+}
+
+.pal{
+    color: #3b7bbf;
+    font-weight: bold;
+}
+
+.card-progress-message{
+    width: 15%;
+    margin-left: .5rem;
+}

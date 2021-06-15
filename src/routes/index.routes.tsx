@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useAuth } from '../contexts/auth';
+import { useLoad } from '../contexts/load';
 
 import AppRoutes from './app.routes';
 import AuthRoutes from './auth.routes';

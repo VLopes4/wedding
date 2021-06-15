@@ -1,4 +1,4 @@
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useCart } from '../../contexts/cart';
@@ -14,10 +14,25 @@ interface SoldItemProps {
 }
 
 export const CartProductItem: React.FC<ProductItemProps> = ({ data }) => {
-    const { addValue } = useCart();
+    const { addValue, killProduct } = useCart();
     const [amount] = useState(data.quantity);
     const [value] = useState(data.price);
     const [total] = useState(data.total);
+
+    async function handleRemoveItemCart() {
+        const item = { 
+            sku: data.sku, 
+            photograph: data.photograph, 
+            name: data.name, 
+            description: data.description,
+            quantity: data.quantity,
+            price: data.price,
+            total: data.price * 1,
+            currency: 'BRL',
+        }
+
+        await killProduct(item);
+    }
 
     async function handleRemoveValueCart(){
         if(data.quantity > 1){
@@ -77,6 +92,9 @@ export const CartProductItem: React.FC<ProductItemProps> = ({ data }) => {
                         <FontAwesomeIcon icon={faPlus}/>
                     </h5>
                 </div>
+                <h6 className="remove-cart" onClick={handleRemoveItemCart}>
+                    <FontAwesomeIcon className="mr-1" icon={faTimes}/> Remover item
+                </h6>
             </div>
             <div className="col-md-3 mb-mobile">
                 <h6 className="product-label">

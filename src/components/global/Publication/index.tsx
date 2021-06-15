@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import ImageGallery from 'react-image-gallery';
+import { useAuth } from '../../../contexts/auth';
+import api from '../../../services/api';
 import { Post, ImagePost, Image } from '../../../models/Post';
+import imgProfile from '../../../assets/images/profile.png';
 import './styles.css';
 
 interface PublicationProps{
@@ -10,6 +14,7 @@ interface PublicationProps{
 }
 
 const Publication: React.FC<PublicationProps> = ({ data, classNames }) => {
+    const { profile } = useAuth();
     const [images, setImages] = useState<Image[]>([]);
 
     useEffect(() => {
@@ -35,23 +40,38 @@ const Publication: React.FC<PublicationProps> = ({ data, classNames }) => {
         }
     }
 
+    async function handleDelete(){
+        try {
+            await api.delete(`/message/${data.id}`)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return(
         <div key={data.id} className={classNames === '' ? "card card-w-50 mx-auto mt-3" : `card mx-auto ${classNames}`}>
             <div className="card-body">
-                <div className="row mx-auto">
-                    <img 
-                        src={data.profile.avatar_url} 
-                        alt="Avatar" 
-                        className="user-avatar space-avatar-name"
-                    />
-                    <div>
-                        <h5 className="m-0 color-d">
-                            {data.profile.name} {data.profile.surname}
-                        </h5>
-                        <span className="text-muted">
-                            Publicado em 27 de setembro de 2020
-                        </span>
+                <div className="row">
+                    <div className="row ml-1 mr-auto">
+                        <img 
+                            src={data.profile.avatar ? data.profile.avatar_url : imgProfile} 
+                            alt="Avatar" 
+                            className="user-avatar space-avatar-name"
+                        />
+                        <div>
+                            <h5 className="publication-name">
+                                {data.profile.name} {data.profile.surname}
+                            </h5>
+                            <span className="text-muted">
+                                Publicado em 27 de setembro de 2020
+                            </span>
+                        </div>
                     </div>
+                    {profile?.id === data.profile.id && (
+                        <div className="ml-auto mr-3">
+                            <FontAwesomeIcon className="cursor-pointer btn-icon-dash" onClick={handleDelete} icon={faTimes} size="lg"/>
+                        </div>
+                    )}
                 </div>
                 <div className="mt-4">
                     <p className="text-justify">

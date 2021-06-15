@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 interface LoadContextData {
-    loading: boolean;
+    isLoading: boolean;
     form: boolean;
     load(): void;
     loaded(): void;
@@ -12,15 +12,15 @@ interface LoadContextData {
 const LoadContext = createContext<LoadContextData>({} as LoadContextData);
 
 export const LoadProvider: React.FC = ({ children }) => {
-    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    function load(){
-        setLoading(true);
+    async function load(){
+        setIsLoading(true);
     }
 
-    function loaded(){
-        setLoading(false);
+    async function loaded(){
+        setIsLoading(false);
     }
 
     function formHiddenT(){
@@ -32,7 +32,7 @@ export const LoadProvider: React.FC = ({ children }) => {
     }
 
     return(
-        <LoadContext.Provider value={{ loading, form, load, loaded, formHiddenT, formHiddenF }}>
+        <LoadContext.Provider value={{ isLoading, form, load, loaded, formHiddenT, formHiddenF }}>
             {children}
         </LoadContext.Provider>
     );

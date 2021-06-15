@@ -5,7 +5,7 @@ export interface Profile {
   avatar_url: string;
   name: string;
   surname: string;
-  user?: User;
+  user: User;
 }
 
 export interface User {
