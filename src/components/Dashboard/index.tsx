@@ -6,7 +6,7 @@ import DashGift from './Gift';
 import { DashCategory } from './Category';
 import { DashGuest } from './Guest';
 import { DashMoment } from './Moment';
-import Config from './Config';
+import DashConfig from './Config';
 import DashParty from './Party';
 
 export default function Dashboard(){
@@ -84,7 +84,7 @@ export default function Dashboard(){
             </div>
             {
                 isActive === 1 ? (
-                    <Config/>
+                    <DashConfig/>
                 ) : isActive === 2 ? (
                     <DashGuest/>
                 ) : isActive === 3 ? (

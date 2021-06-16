@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { useLoad } from '../../contexts/load';
 import './styles.css';
 
 export default function Countdown() {
@@ -6,6 +9,7 @@ export default function Countdown() {
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
+    const [dayEvent, setDayEvent] = useState(false);
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
 
     useEffect(() => {
@@ -24,23 +28,27 @@ export default function Countdown() {
             setHours(Math.floor((difference / (1000 * 60 * 60)) % 24));
             setMinutes(Math.floor((difference / 1000 / 60) % 60));
             setSeconds(Math.floor((difference / 1000) % 60));
+        } else {
+            setDayEvent(true);
         }
     }
 
     return(
-        <div className="container-countdown">
-            <div className="time-countdown">
-                <span>{days}</span>
-                <span>{hours}</span>
-                <span>{minutes}</span>
-                <span>{seconds}</span>
+        <>
+            <div className="container-countdown">
+                <div className="time-countdown">
+                    <span>{days}</span>
+                    <span>{hours}</span>
+                    <span>{minutes}</span>
+                    <span>{seconds}</span>
+                </div>
+                <div className="label-countdown">
+                    <span>{days > 1 ? 'dias' : 'dia'}</span>
+                    <span>{hours > 1 ? 'horas' : 'hora'}</span>
+                    <span>{minutes > 1 ? 'minutos' : 'minuto'}</span>
+                    <span>{seconds > 1 ? 'segundos' : 'segundo'}</span>
+                </div>
             </div>
-            <div className="label-countdown">
-                <span>{days > 1 ? 'dias' : 'dia'}</span>
-                <span>{hours > 1 ? 'horas' : 'hora'}</span>
-                <span>{minutes > 1 ? 'minutos' : 'minuto'}</span>
-                <span>{seconds > 1 ? 'segundos' : 'segundo'}</span>
-            </div>
-        </div>
+        </>
     );
 }

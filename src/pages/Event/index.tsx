@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpotify } from '@fortawesome/free-brands-svg-icons'
+import { useLoad } from '../../contexts/load';
 import api from '../../services/api';
+import { Location } from '../../models/Event';
 import Header from '../../components/global/Header';
 import Countdown from '../../components/Countdown';
 import Presence from '../../components/global/Presence';
 import Footer from '../../components/global/Footer';
-import './styles.css';
-import { Location } from '../../models/Event';
 import { LocationEvent } from '../../components/global/Location';
+import './styles.css';
 
 
 export default function Event(){
+    const { config } = useLoad();
     const [locations, setLocations] = useState([]);
 
     useEffect(() => {
@@ -65,13 +69,16 @@ export default function Event(){
                     <div className="card-body p-0">
                         <iframe 
                             className="spotify"
-                            src="https://open.spotify.com/embed/playlist/13QP8wHMfsndxJGTSIssQD" 
+                            src="https://open.spotify.com/embed/playlist/1mJYzxA4dbScDOaUqMcmat" 
                             frameBorder={0} 
                             allowTransparency={true} 
                             allow="encrypted-media"
                         />
                     </div>
                     <div className="card-footer">
+                        <p className="text-center mb-0">
+                            Clique no <FontAwesomeIcon icon={faSpotify}/> para acessar o álbum
+                        </p>
                         <p className="text-center mb-0">
                             As músicas adicionadas estão sendo avaliadas. Algumas músicas podem ser removidas!
                         </p>
